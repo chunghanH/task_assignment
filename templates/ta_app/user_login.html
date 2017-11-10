@@ -1,4 +1,13 @@
 {% extends 'ta_app/base.html' %}
 {% block body_block %}
-
+<h1>員工登入</h1><br>
+<form method="post" action="{% url 'ta_app:user_login' %}" >
+	{% csrf_token %}
+	<label for="username">帳號:</label>
+	<input type="text" name="username" placeholder="輸入帳號..." class="form-control">
+	<label for="password">密碼:</label>
+	<input type="password" name="password" placeholder="輸入密碼..." id="inputPassword2" class="form-control">	
+	<br>
+	<input type="submit" name="" value="登入" class="btn btn-success">
+</form>
 {% endblock %}
