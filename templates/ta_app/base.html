@@ -1,0 +1,15 @@
+<html>
+	<head>
+		{% include "ta_app/includes/cdn_top.html" %}
+	</head>
+
+	<body>
+		<div class="container-fluid">
+			{% include "ta_app/includes/navbar.html" %}
+
+			{% block body_block %}
+			{% endblock %}
+		</div>
+		{% include "ta_app/includes/cdn_bottom.html" %}
+	</body>
+</html>
