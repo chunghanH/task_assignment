@@ -1,9 +1,22 @@
-def message(message_type='', text=''):
-	dics = {
-		'message' : {
-			'message_type' : message_type, 
-			'text' : text,
-			}
-		}
+def show_message(message_type='', text=''):
+	# Argument
+	# - message_type: green, blue, red, deep_blue, yellow
+	# - text: any text 
 
-	return dics
+	references = {
+		'red' : 'bg-danger',
+		'green' : 'bg-success',
+		'blue' : 'bg-info',
+		'yellow' : 'bg-warning',
+		'deep_blue' : 'bg-primary',
+		'' : '',
+	}
+
+	message = {
+		'message' : {
+			'message_type' : references[message_type], 
+			'text' : text,
+		}
+	}
+
+	return message

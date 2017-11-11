@@ -6,7 +6,7 @@
 	<body>
 		<div class="container-fluid">
 			{% include "ta_app/includes/navbar.html" %}
-			<p class="{{ message.type }}">{{ message.text }}</p>
+			<p class="{{ message.message_type }}">{{ message.text }}</p>
 			{% block body_block %}
 			{% endblock %}
 		</div>

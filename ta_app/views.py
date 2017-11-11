@@ -5,7 +5,7 @@ from django.http import HttpResponseRedirect, HttpResponse
 from django.core.urlresolvers import reverse
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
-from mylibrary.message import message
+from mylibrary.message import show_message
 # Create your views here.
 def index(request):
 	dics = {'content' : 'This is Index Page'}
@@ -20,7 +20,7 @@ def task_in_progress(request):
 	return render(request, 'ta_app/task_in_progress.html', context=dics)
 
 def user_login(request):
-	msg = message()
+	message = {}
 
 	if request.method == 'POST':
 		username = request.POST.get('username')
@@ -31,14 +31,11 @@ def user_login(request):
 				login(request, user)
 				return HttpResponseRedirect(reverse('index'))
 			else:
-				msg['message']['type'] = 'bg-danger'
-				msg['message']['text'] = '登入系統發生問題'
-
+				message = show_message('red', '登入系統發生問題')
 		else:
-			msg['message']['type'] = 'bg-danger'
-			msg['message']['text'] = '無效的帳號或密碼'
+			message = show_message('red', '無效的帳號或密碼')
  
-	return render(request, 'ta_app/user_login.html', context=msg)
+	return render(request, 'ta_app/user_login.html', context=message)
 
 @login_required
 def user_logout(request):
