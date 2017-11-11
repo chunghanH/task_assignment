@@ -15,9 +15,9 @@ def task(request):
 	dics = {'content' : 'This is Task Page'}
 	return render(request, 'ta_app/task.html', context=dics)
 
-def task_in_progress(request):
-	dics = {'content' : 'This is Task in Progress Page'}
-	return render(request, 'ta_app/task_in_progress.html', context=dics)
+def report(request):
+	dics = {'content' : 'This is report Page'}
+	return render(request, 'ta_app/report.html', context=dics) 
 
 def user_login(request):
 	message = {}
