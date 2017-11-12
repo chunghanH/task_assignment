@@ -1,4 +1,37 @@
 {% extends 'ta_app/base.html' %}
 {% block body_block %}
-<h1>{{ content }}</h1>
+<h1>工作列表</h1>
+
+<table class="table">
+<thead>
+<tr>
+	<td>主旨</td>
+	<td>描述</td>
+	<td>報酬</td>
+	<td>起始日期</td>
+	<td>新增日期</td>
+	<td>修改日期</td>
+</tr>
+</thead>
+
+<tbody>
+{% for task in tasks %}
+<tr>
+	<td><a href="{% url 'ta_app:task_detail' task.pk %} ">{{ task.subject }}</a></td>
+	<td>{{ task.description }}</td>
+	<td>{{ task.reward }}</td>
+	<td>{{ task.begin_date }}</td>
+	<td>{{ task.created_at }}</td>
+	<td>{{ task.updated_at }}</td>
+</tr>
+</tbody>
+{% endfor %}
+
+</table>
+
+
+
+
+
+
 {% endblock %}

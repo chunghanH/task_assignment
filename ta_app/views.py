@@ -6,14 +6,19 @@ from django.core.urlresolvers import reverse
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from mylibrary.message import show_message
+from ta_app.models import Task
 # Create your views here.
 def index(request):
 	dics = {'content' : 'This is Index Page'}
 	return render(request,'ta_app/index.html', context=dics)
 
 def task(request):
-	dics = {'content' : 'This is Task Page'}
-	return render(request, 'ta_app/task.html', context=dics)
+	tasks = Task.objects.all()
+	return render(request, 'ta_app/task.html', context={'tasks' : tasks})
+
+def task_detail(request, pk):
+	a_task = Task.objects.get(pk=pk)
+	return render(request, 'ta_app/task_detail.html', context={'a_task' : a_task})
 
 def report(request):
 	dics = {'content' : 'This is report Page'}
@@ -26,12 +31,10 @@ def user_login(request):
 		username = request.POST.get('username')
 		password = request.POST.get('password')
 		user = authenticate(username=username, password=password)
-		if user :
-			if user.is_active :
-				login(request, user)
-				return HttpResponseRedirect(reverse('index'))
-			else:
-				message = show_message('red', '登入系統發生問題')
+		
+		if user and user.is_active :
+			login(request, user)
+			return HttpResponseRedirect(reverse('index'))
 		else:
 			message = show_message('red', '無效的帳號或密碼')
  

@@ -21,3 +21,9 @@ class Task(models.Model):
 	def __str__(self):
 		return self.subject
 
+class Task_detail(models.Model):
+	username = models.ForeignKey(User)
+	task_pk =  models.ForeignKey(Task)
+
+	def __str__(self):
+		return self.task_pk.subject
