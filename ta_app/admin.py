@@ -7,8 +7,10 @@ from . import models
 
 class TaskAdmin(admin.ModelAdmin):
 
-	search_fields = ['subject','description','reward','begin_date','created_at','updated_at']
+	fields = ['subject','description','reward','number_of_people','begin_date']
+	search_fields = ['subject','description','reward','number_of_people','begin_date','created_at','updated_at']
 	list_filter = ['begin_date','created_at','updated_at']
-	list_display = ['subject','description','reward','begin_date','created_at','updated_at']
+	list_display = ['subject','description','reward','number_of_people','begin_date','created_at','updated_at']
 
 admin.site.register(models.Task, TaskAdmin)
+admin.site.register(models.TaskDetail)

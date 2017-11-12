@@ -15,15 +15,16 @@ class Task(models.Model):
 	description = models.TextField(max_length=1024)
 	reward = models.PositiveIntegerField()
 	begin_date = models.DateField()
+	number_of_people = models.PositiveIntegerField(default=1)
 	created_at = models.DateField(auto_now_add=True)
 	updated_at = models.DateTimeField(auto_now=True)
 
 	def __str__(self):
 		return self.subject
 
-class Task_detail(models.Model):
+class TaskDetail(models.Model):
 	username = models.ForeignKey(User)
-	task_pk =  models.ForeignKey(Task)
+	task_pk =  models.ForeignKey(Task, related_name='tasks')
 
 	def __str__(self):
 		return self.task_pk.subject

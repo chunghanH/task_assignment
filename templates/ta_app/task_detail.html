@@ -1,7 +1,19 @@
 {% extends 'ta_app/base.html' %}
 {% block body_block %}
 
-<h1>Task Detail</h1>
-{{ a_task }}
+<h1>{{ task.subject }}</h1>
+<p>描述:{{ task.description }}</p>
+
+<p>報酬:{{ task.reward }}</p>
+<p>需求人數:{{ task.number_of_people }}人</p>
+<p>派工日期:{{ task.begin_date }}</p>
+<p>張貼日期:{{ task.created_at }}</p>
+<p>目前參與人:</p>
+{% for task in task.tasks.all %}
+<p>{{ task.username }}</p>
+{% endfor %}
+
+
+<a class="btn btn-success" href="">參與</a>
 
 {% endblock %}

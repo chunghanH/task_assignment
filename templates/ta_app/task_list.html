@@ -1,16 +1,17 @@
+
 {% extends 'ta_app/base.html' %}
 {% block body_block %}
 <h1>工作列表</h1>
-
+{% if user.is_superuser %}
+<p><a href="{% url 'ta_app:create' %}" class="btn btn-primary">新增工作</a></p>
+{% endif %}
 <table class="table">
 <thead>
 <tr>
 	<td>主旨</td>
-	<td>描述</td>
 	<td>報酬</td>
-	<td>起始日期</td>
-	<td>新增日期</td>
-	<td>修改日期</td>
+	<td>派工日期</td>
+	<td>張貼日期</td>
 </tr>
 </thead>
 
@@ -18,11 +19,12 @@
 {% for task in tasks %}
 <tr>
 	<td><a href="{% url 'ta_app:task_detail' task.pk %} ">{{ task.subject }}</a></td>
-	<td>{{ task.description }}</td>
 	<td>{{ task.reward }}</td>
 	<td>{{ task.begin_date }}</td>
 	<td>{{ task.created_at }}</td>
-	<td>{{ task.updated_at }}</td>
+	{% if user.is_superuser %}
+	<td><a href="" class="btn btn-warning">修改</a> <a href="" class="btn btn-danger" onclick="confirm_message('確定要刪除？')">刪除</a></td>	
+	{% endif %}
 </tr>
 </tbody>
 {% endfor %}
