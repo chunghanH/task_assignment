@@ -1,9 +1,9 @@
 {% extends 'ta_app/base.html' %}
 {% block body_block %}
-<h1>{{ title }}</h1>
+<h1>註冊</h1>
 <form method="post">
     {% csrf_token %}
     {{ form.as_p }}
-    <input class="btn btn-success" type="submit" value="送出" >
+    <input class="btn btn-primary" type="submit" value="送出" >
 </form>
 {% endblock %}

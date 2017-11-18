@@ -23,7 +23,7 @@ class Task(models.Model):
 		return self.subject
 
 class TaskDetail(models.Model):
-	username = models.ForeignKey(User)
+	username = models.ForeignKey(User, related_name='tasks')
 	task_pk =  models.ForeignKey(Task, related_name='tasks')
 
 	def __str__(self):

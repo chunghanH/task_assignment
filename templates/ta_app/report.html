@@ -1,5 +1,27 @@
 {% extends "ta_app/base.html" %}
 {% block body_block %}
-	<h1>{{ content }}</h1>
+<h1>報表</h1>
+<table class="table">
+	<thead>
+		<tr>
+			<td>員工帳號</td>
+			<td>員工姓名</td>
+			<td>已處理案件數</td>
+			<td>報酬</td>
+			<td>註冊日期</td>
+		</tr>
+	</thead>
+	
+	<tbody>
+		{% for user in users %}
+		<tr>
+			<td>{{ user.username }}</td>
+			<td>{{ user.last_name }} {{ user.first_name }}</td>
+			<td></td>
+			<td></td>
+			<td>{{ user.date_joined }}</td>
+		</tr>
+		{% endfor %}
+	</tbody>
 {% endblock %}
 
