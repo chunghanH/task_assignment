@@ -24,7 +24,7 @@
 		{% if user.is_superuser %}
 		<td>
 			<a href="{% url 'ta_app:update' task.pk %}" class="btn btn-warning">修改</a>
-			<form method="post" action="{% url 'ta_app:delete' %}">
+			<form method="post" action="{% url 'ta_app:delete' %}" id="task_form">
 				{% csrf_token %}
 				<input type="hidden" name="pk" value="{{ task.pk }}" />
 				<input type="submit" value="刪除" class="btn btn-danger" />

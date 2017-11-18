@@ -1,7 +1,7 @@
 {% extends 'ta_app/base.html' %}
 {% block body_block %}
 <h1>{{ title }}</h1>
-<form method="post">
+<form method="post" id="task_form">
     {% csrf_token %}
     {{ form.as_p }}
     <input class="btn btn-success" type="submit" value="送出" >

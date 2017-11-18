@@ -62,7 +62,7 @@ def register(request):
 			user.save()
 			registered = True
 			messages.success(request, '新增帳號成功')
-			return redirect('ta_app:user_login')
+			return redirect('ta_app:login')
 		else:
 			messages.add_message(request, 50, '無效的帳號或密碼')
 	else:
