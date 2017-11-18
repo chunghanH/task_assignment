@@ -5,7 +5,6 @@ from django.http import HttpResponseRedirect, HttpResponse
 from django.core.urlresolvers import reverse
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
-from mylibrary.message import show_message
 from ta_app.models import Task, TaskDetail
 from ta_app.form import TaskForm, UserForm
 from django.contrib.auth.models import User
@@ -54,7 +53,6 @@ def report(request):
 	return render(request, 'ta_app/report.html', context={'users' : users}) 
 
 def register(request):
-	message = {}
 	registered = False
 	if request.method == 'POST':
 		form = UserForm(request.POST or None)
@@ -63,22 +61,19 @@ def register(request):
 			user.set_password(user.password)
 			user.save()
 			registered = True
-			message = show_message('green', '新增帳號成功')
-			messages.success(request, '新增帳號成功 you')
-			return redirect('ta_app:task_list')
+			messages.success(request, '新增帳號成功')
+			return redirect('ta_app:user_login')
 		else:
-			message = show_message('red', '無效的帳號或密碼')
+			messages.add_message(request, 50, '無效的帳號或密碼')
 	else:
 		form = UserForm()
 	
 	return render(request,'ta_app/registration.html', context={
 							'form' : form,
-                           	'registered' : registered,
-						   	'message' : message})
+                           	'registered' : registered})
 
 
 def user_login(request):
-	message = {}
 
 	if request.method == 'POST':
 		username = request.POST.get('username')
@@ -89,9 +84,9 @@ def user_login(request):
 			login(request, user)
 			return HttpResponseRedirect(reverse('index'))
 		else:
-			message = show_message('red', '無效的帳號或密碼')
- 
-	return render(request, 'ta_app/user_login.html', context=message)
+			messages.add_message(request, 50, '無效的帳號或密碼')
+
+	return render(request, 'ta_app/user_login.html', {})
 
 @login_required
 def user_logout(request):

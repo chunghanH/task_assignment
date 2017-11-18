@@ -6,10 +6,15 @@
 	<body>
 		<div class="container-fluid">
 			{% include "ta_app/includes/navbar.html" %}
-			<p class="{{ message.message_type }}">{{ message.text }}</p>
+			{% if messages %}
+				{% for message in messages %}
+				<p {% if message.tags %} class="bg-{{ message.tags }}"{% endif %}>{{ message }}</p>
+				{% endfor %}
+			{% endif %}
 			{% block body_block %}
 			{% endblock %}
 		</div>
 		{% include "ta_app/includes/cdn_bottom.html" %}
 	</body>
 </html>
+

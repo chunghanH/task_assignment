@@ -137,3 +137,10 @@ MEDIA_ROOT = MEDIA_DIR
 MEDIA_URL = '/media/'
 
 LOGIN_URL = '/ta_app/user_login'
+
+from django.contrib.messages import constants as messages
+
+MESSAGE_TAGS = {
+messages.INFO: '',
+50 : 'danger',
+}
