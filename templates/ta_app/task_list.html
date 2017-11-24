@@ -11,6 +11,8 @@
 		<td>報酬</td>
 		<td>派工日期</td>
 		<td>張貼日期</td>
+		<td></td>
+		<td></td>
 	</tr>
 	</thead>
 
@@ -24,6 +26,8 @@
 		{% if user.is_superuser %}
 		<td>
 			<a href="{% url 'ta_app:update' task.pk %}" class="btn btn-warning">修改</a>
+		</td>
+		<td>
 			<form method="post" action="{% url 'ta_app:delete' %}" id="task_form">
 				{% csrf_token %}
 				<input type="hidden" name="pk" value="{{ task.pk }}" />

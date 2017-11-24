@@ -11,11 +11,11 @@ class UserInfo(models.Model):
 		return self.user.username
 
 class Task(models.Model):
-	subject = models.CharField(max_length=256)
-	description = models.TextField(max_length=1024)
-	reward = models.PositiveIntegerField()
-	begin_date = models.DateField()
-	number_of_people = models.PositiveIntegerField(default=1)
+	subject = models.CharField(max_length=256, verbose_name='主旨')
+	description = models.TextField(max_length=1024, verbose_name='描述')
+	reward = models.PositiveIntegerField(verbose_name='報酬')
+	begin_date = models.DateField(verbose_name='派工日')
+	number_of_people = models.PositiveIntegerField(default=1, verbose_name='人數')
 	created_at = models.DateField(auto_now_add=True)
 	updated_at = models.DateTimeField(auto_now=True)
 

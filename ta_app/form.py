@@ -14,7 +14,7 @@ class TaskForm(forms.ModelForm):
             'description': forms.Textarea(attrs={'class': 'form-control'}),
             'reward': forms.NumberInput(attrs={'class': 'form-control'}),
             'number_of_people': forms.NumberInput(attrs={'class': 'form-control'}),
-            'begin_date': forms.DateInput(attrs={'class': 'form-control', 'id' : 'datepicker1', 'placeholder' : '2017-01-01'}),
+            'begin_date': forms.DateInput(attrs={'class': 'form-control', 'id' : 'datepicker', 'placeholder' : '2017-01-01'}),
         }
 
 class UserForm(forms.ModelForm):

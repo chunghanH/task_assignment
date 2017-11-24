@@ -4,7 +4,7 @@ $('#task_form').submit(function() {
 });
 
 $(function(){
-    $('#datepicker1').datepicker({
-        dateFormat: 'yy-mm-dd'
+    $('#datepicker').datepicker({
+        altFormat: 'yy-mm-dd'
     });
 });
