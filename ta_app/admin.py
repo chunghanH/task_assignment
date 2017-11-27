@@ -6,11 +6,16 @@ from . import models
 # Register your models here.
 
 class TaskAdmin(admin.ModelAdmin):
-
 	fields = ['subject','description','reward','number_of_people','begin_date']
 	search_fields = ['subject','description','reward','number_of_people','begin_date','created_at','updated_at']
 	list_filter = ['begin_date','created_at','updated_at']
 	list_display = ['subject','description','reward','number_of_people','begin_date','created_at','updated_at']
 
+class TaskDetailAdmin(admin.ModelAdmin):
+	list_display = ['task','username']
+
+	def username(self, obj):
+		return '{} {} {}'.format(obj.user.last_name, obj.user.first_name, obj.user.username)
+
 admin.site.register(models.Task, TaskAdmin)
-admin.site.register(models.TaskDetail)
+admin.site.register(models.TaskDetail, TaskDetailAdmin)

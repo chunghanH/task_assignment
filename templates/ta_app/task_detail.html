@@ -1,19 +1,22 @@
 {% extends 'ta_app/base.html' %}
 {% block body_block %}
 
-<h1>{{ task.subject }}</h1>
-<p>描述:{{ task.description }}</p>
+<h1>主旨：{{ task.subject }}</h1>
+<p>描述：{{ task.description }}</p>
 
-<p>報酬:{{ task.reward }}</p>
-<p>需求人數:{{ task.number_of_people }}人</p>
-<p>派工日期:{{ task.begin_date }}</p>
-<p>張貼日期:{{ task.created_at }}</p>
-<p>目前參與人:</p>
+<p>報酬：{{ task.reward }}</p>
+<p>需求人數：{{ task.number_of_people }}人</p>
+<p>派工日期：{{ task.begin_date }}</p>
+<p>張貼日期：{{ task.created_at }}</p>
+<p>目前參與人：</p>
 {% for task in task.tasks.all %}
-<p>{{ task.username }}</p>
+<p> {{ task.user.last_name }} {{ task.user.first_name }} {{ task.user.username }}
+    {% if task.user.username == user.username %}
+        <a class="btn btn-danger" href="{% url 'ta_app:unjoin' task.task.pk %}">退出</a></p>
+    {% else %}
+        </p>
+    {% endif %}
 {% endfor %}
-
-
-<a class="btn btn-success" href="">參與</a>
+<a class="btn btn-success" href="{% url 'ta_app:join' task.pk %}">申請</a>        
 
 {% endblock %}

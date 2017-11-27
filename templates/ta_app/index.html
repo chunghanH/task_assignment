@@ -1,5 +1,6 @@
 {% extends "ta_app/base.html" %}
 {% block body_block %}
 	<h1>{{ content }}</h1>
+	<a href="{% url 'ta_app:user_login' %}">按此登入</a>
 {% endblock %}
 

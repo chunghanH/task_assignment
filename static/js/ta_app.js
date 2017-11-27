@@ -5,6 +5,6 @@ $('#task_form').submit(function() {
 
 $(function(){
     $('#datepicker').datepicker({
-        altFormat: 'yy-mm-dd'
+        dateFormat: 'yy-mm-dd'
     });
 });

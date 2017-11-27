@@ -19,10 +19,12 @@ def task_list(request):
 	tasks = Task.objects.all()
 	return render(request, 'ta_app/task_list.html', context={'tasks' : tasks})
 
+@login_required
 def task_detail(request, pk):
 	task = Task.objects.get(pk=pk)
 	return render(request, 'ta_app/task_detail.html', context={'task' : task})
 
+@login_required
 def create_task(request):
 	form = TaskForm(request.POST or None)
 	if form.is_valid():
@@ -30,6 +32,7 @@ def create_task(request):
 		return redirect('ta_app:task_list')
 	return render(request, 'ta_app/task_form.html', {'form' : form, 'title' : '新增工作'})
 
+@login_required
 def update_task(request, pk):
 	task = get_object_or_404(Task, pk=pk)
 	form = TaskForm(request.POST or None, instance=task)
@@ -38,16 +41,41 @@ def update_task(request, pk):
 		return redirect('ta_app:task_list')
 	return render(request, 'ta_app/task_form.html', {'form' : form})
 
+@login_required
 def delete_task(request):
 	print('delete_task activate')
 	if request.method == 'POST':
 		pk = request.POST.get('pk')
-		print('in the post{}'.format(pk))
 		task = get_object_or_404(Task, pk=pk)
 		task.delete()
 		return redirect('ta_app:task_list')
 	return redirect('ta_app:task_list')
 
+@login_required
+def join_task(request, pk):
+	task = get_object_or_404(Task, pk=pk)
+	task_detail = TaskDetail.objects
+	count = len(task_detail.filter(task=task))
+	print(count)
+	if count < task.number_of_people:
+		if task_detail.filter(user=request.user, task=task):
+			messages.add_message(request, 50, '重複申請工作')
+		else:
+			task_detail = TaskDetail.objects.create(user=request.user, task=task)
+			messages.success(request, '申請成功')
+	else:
+		messages.add_message(request, 50, '工作人數已滿')
+	return redirect('ta_app:task_detail', pk)
+
+@login_required
+def unjoin_task(request, pk):
+	task = get_object_or_404(Task, pk=pk)
+	task_detail = TaskDetail.objects.filter(user=request.user, task=task)
+	task_detail.delete()
+	messages.success(request, '退出成功')
+	return redirect('ta_app:task_detail', pk)
+	
+@login_required
 def report(request):
 	users = User.objects.all()
 	return render(request, 'ta_app/report.html', context={'users' : users}) 
@@ -72,9 +100,7 @@ def register(request):
 							'form' : form,
                            	'registered' : registered})
 
-
 def user_login(request):
-
 	if request.method == 'POST':
 		username = request.POST.get('username')
 		password = request.POST.get('password')
