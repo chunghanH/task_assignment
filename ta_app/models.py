@@ -21,13 +21,7 @@ class Task(models.Model):
 	number_of_people = models.PositiveIntegerField(default=1, verbose_name='人數')
 	created_at = models.DateField(auto_now_add=True)
 	updated_at = models.DateTimeField(auto_now=True)
+	user = models.ManyToManyField(User)
 
 	def __str__(self):
 		return self.subject
-
-class TaskDetail(models.Model):
-	user = models.ForeignKey(User, related_name='tasks')
-	task = models.ForeignKey(Task, related_name='tasks')
-
-	def __str__(self):
-		return '{} {} {}'.format(self.user.last_name, self.user.first_name, self.user.username)

@@ -5,10 +5,11 @@ from django.http import HttpResponseRedirect, HttpResponse
 from django.core.urlresolvers import reverse
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
-from ta_app.models import Task, TaskDetail
+from ta_app.models import Task
 from ta_app.form import TaskForm, UserForm
 from django.contrib.auth.models import User
 from django.contrib import messages
+from django.db.models import Avg, Sum
 
 # Create your views here.
 def index(request):
@@ -22,6 +23,7 @@ def task_list(request):
 @login_required
 def task_detail(request, pk):
 	task = Task.objects.get(pk=pk)
+
 	return render(request, 'ta_app/task_detail.html', context={'task' : task})
 
 @login_required
@@ -53,25 +55,18 @@ def delete_task(request):
 
 @login_required
 def join_task(request, pk):
-	task = get_object_or_404(Task, pk=pk)
-	task_detail = TaskDetail.objects
-	count = len(task_detail.filter(task=task))
-	print(count)
-	if count < task.number_of_people:
-		if task_detail.filter(user=request.user, task=task):
-			messages.add_message(request, 50, '重複申請工作')
-		else:
-			task_detail = TaskDetail.objects.create(user=request.user, task=task)
-			messages.success(request, '申請成功')
+	task = Task.objects.get(pk=pk)
+	if task.user.all().count() < task.number_of_people:
+		task.user.add(request.user)
+		messages.success(request, '申請成功')
 	else:
 		messages.add_message(request, 50, '工作人數已滿')
 	return redirect('ta_app:task_detail', pk)
 
 @login_required
 def unjoin_task(request, pk):
-	task = get_object_or_404(Task, pk=pk)
-	task_detail = TaskDetail.objects.filter(user=request.user, task=task)
-	task_detail.delete()
+	task = Task.objects.get(pk=pk)
+	task.user.remove(request.user)
 	messages.success(request, '退出成功')
 	return redirect('ta_app:task_detail', pk)
 	

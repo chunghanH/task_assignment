@@ -9,14 +9,15 @@
 <p>派工日期：{{ task.begin_date }}</p>
 <p>張貼日期：{{ task.created_at }}</p>
 <p>目前參與人：</p>
-{% for task in task.tasks.all %}
-<p> {{ task.user.last_name }} {{ task.user.first_name }} {{ task.user.username }}
-    {% if task.user.username == user.username %}
-        <a class="btn btn-danger" href="{% url 'ta_app:unjoin' task.task.pk %}">退出</a></p>
-    {% else %}
-        </p>
-    {% endif %}
+<ul>
+{% for user_task in task.user.all %}
+<li>{{ user_task }}</li>    
 {% endfor %}
+</ul>
+{% if user in task.user.all %}
+<a class="btn btn-danger" href="{% url 'ta_app:unjoin' task.pk %}">退出</a></p>
+{% else %}
 <a class="btn btn-success" href="{% url 'ta_app:join' task.pk %}">申請</a>        
+{% endif %}
 
 {% endblock %}
