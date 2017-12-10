@@ -1,5 +1,7 @@
 {% extends "ta_app/base.html" %}
 {% block body_block %}
+{% load tags %}
+
 <h1>報表</h1>
 <table class="table">
 	<thead>
@@ -18,7 +20,7 @@
 			<td>{{ u.username }}</td>
 			<td>{{ u.last_name }} {{ u.first_name }}</td>
 			<td>{{ u.task_set.all.count }}</td>
-			<td>{{ u.task_set.all.annotate.sum }}</td>
+			<td>{% total_reward u %}</td>
 			<td>{{ u.date_joined }}</td>
 		</tr>
 		{% endfor %}

@@ -45,7 +45,6 @@ def update_task(request, pk):
 
 @login_required
 def delete_task(request):
-	print('delete_task activate')
 	if request.method == 'POST':
 		pk = request.POST.get('pk')
 		task = get_object_or_404(Task, pk=pk)
